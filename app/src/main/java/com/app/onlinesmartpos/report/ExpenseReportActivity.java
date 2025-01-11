@@ -1,5 +1,6 @@
 package com.app.onlinesmartpos.report;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -93,55 +94,45 @@ public class ExpenseReportActivity extends BaseActivity {
 
 
     //for back button
+    @SuppressLint("NonConstantResourceId")
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
+                // App icon in action bar clicked; go to parent activity.
                 this.finish();
                 return true;
-            case R.id.menu_all_sales:
-                getReport("all");
-                getExpenseData("all");
 
-                return true;
-
-            case R.id.menu_daily:
-                getReport("daily");
-                getExpenseData("daily");
-
-                return true;
-
-            case R.id.menu_weekly:
-                getReport("weekly");
-                getExpenseData("weekly");
-
-                return true;
-
-
-            case R.id.menu_monthly:
-                getReport("monthly");
-                getExpenseData("monthly");
-
-
-                return true;
-
-            case R.id.menu_yearly:
-                getReport("yearly");
-                getExpenseData("yearly");
-
-
-                return true;
-
+//            case R.id.menu_all_sales:
+//                getReport("all");
+//                getExpenseData("all");
+//                return true;
+//
+//            case R.id.menu_daily:
+//                getReport("daily");
+//                getExpenseData("daily");
+//                return true;
+//
+//            case R.id.menu_weekly:
+//                getReport("weekly");
+//                getExpenseData("weekly");
+//                return true;
+//
+//            case R.id.menu_monthly:
+//                getReport("monthly");
+//                getExpenseData("monthly");
+//                return true;
+//
+//            case R.id.menu_yearly:
+//                getReport("yearly");
+//                getExpenseData("yearly");
+//                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    public void getReport(String type) {
+    }public void getReport(String type) {
 
         getExpenseData(type);
         getExpenseReport(type);

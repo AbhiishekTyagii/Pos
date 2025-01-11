@@ -13,7 +13,7 @@ public class Constant {
     public static final String PRODUCT_IMAGE_URL = "https://wallpapers.auraview.in/WebSourceCode/product_images/";
 
     //We will use this to store the user token number into shared preference
-    public static final String SHARED_PREF_NAME = "com.app.onlinesmartpos"; //pcakage name+ id
+    public static final String SHARED_PREF_NAME = "com.app.onlinesmartpos"; //package name+ id
 
     public static final String SP_PHONE = "phone";
     public static final String SP_PASSWORD = "password";

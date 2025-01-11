@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,6 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         getSupportActionBar().hide();
 
         etxtEmail = findViewById(R.id.etxt_email);
@@ -51,10 +51,8 @@ public class LoginActivity extends BaseActivity {
         String email = sp.getString(Constant.SP_EMAIL, "");
         String password = sp.getString(Constant.SP_PASSWORD, "");
 
-
         etxtEmail.setText(email);
         etxtPassword.setText(password);
-
 
         if (email.length() >= 3 && password.length() >= 3) {
             if (utils.isNetworkAvailable(LoginActivity.this)) {
@@ -63,7 +61,6 @@ public class LoginActivity extends BaseActivity {
                 Toasty.error(this, R.string.no_network_connection, Toast.LENGTH_SHORT).show();
             }
         }
-
 
         txtLogin.setOnClickListener(v -> {
             String email1 = etxtEmail.getText().toString().trim();
@@ -76,8 +73,6 @@ public class LoginActivity extends BaseActivity {
                 etxtPassword.setError(getString(R.string.please_enter_password));
                 etxtPassword.requestFocus();
             } else {
-
-
                 if (utils.isNetworkAvailable(LoginActivity.this)) {
                     login(email1, password1);
                 } else {
@@ -85,12 +80,9 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
-
-
     }
 
-
-    //login method
+    // Login method
     private void login(String email, String password) {
 
         loading = new ProgressDialog(this);
@@ -105,13 +97,15 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(@NonNull Call<Login> call, @NonNull Response<Login> response) {
 
-                if (response.body() != null && response.isSuccessful()) {
+                // Log the full response for debugging
+                Log.d("LoginResponse", "Raw response: " + response.body());
+
+                if (response.isSuccessful() && response.body() != null) {
                     String value = response.body().getValue();
                     String message = response.body().getMassage();
                     String staffId = response.body().getStaffId();
                     String staffName = response.body().getName();
                     String userType = response.body().getUserType();
-
 
                     String shopName = response.body().getShopName();
                     String shopAddress = response.body().getShopAddress();
@@ -122,26 +116,18 @@ public class LoginActivity extends BaseActivity {
                     String shopStatus = response.body().getShopStatus();
 
                     if (shopName != null || shopAddress != null || shopContact != null || shopEmail != null || tax != null || currencySymbol != null || shopStatus != null || staffId != null || staffName != null || userType != null) {
-
-
                         if (shopStatus.equals(Constant.STATUS_CLOSED)) {
                             Toasty.error(LoginActivity.this, R.string.shop_closed_now, Toast.LENGTH_SHORT).show();
-
                             loading.dismiss();
                         } else if (value.equals(Constant.SUCCESS)) {
-                            loading.dismiss();
-                            //Creating editor to store values to shared preferences
+                            // Save the values to SharedPreferences
                             SharedPreferences.Editor editor = sp.edit();
-                            //Adding values to editor
-
                             editor.putString(Constant.SP_EMAIL, email);
                             editor.putString(Constant.SP_PASSWORD, password);
-
 
                             editor.putString(Constant.SP_STAFF_ID, staffId);
                             editor.putString(Constant.SP_STAFF_NAME, staffName);
                             editor.putString(Constant.SP_USER_TYPE, userType);
-
 
                             editor.putString(Constant.SP_SHOP_NAME, shopName);
                             editor.putString(Constant.SP_SHOP_ADDRESS, shopAddress);
@@ -150,32 +136,31 @@ public class LoginActivity extends BaseActivity {
                             editor.putString(Constant.SP_SHOP_STATUS, shopStatus);
                             editor.putString(Constant.SP_CURRENCY_SYMBOL, currencySymbol);
                             editor.putString(Constant.SP_TAX, tax);
-
-
-                            //Saving values to Share preference
                             editor.apply();
 
                             Toasty.success(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
-
+                        } else {
+                            loading.dismiss();
+                            Toasty.error(LoginActivity.this, R.string.invalid_username_or_password, Toast.LENGTH_SHORT).show();
                         }
-
                     } else {
                         loading.dismiss();
-                        Toasty.error(LoginActivity.this, R.string.invalid_email_or_password, Toast.LENGTH_SHORT).show();
+                        Toasty.error(LoginActivity.this, R.string.invalid_response_from_server, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     loading.dismiss();
-
+                    Log.e("LoginError", "Response failed: " + response.code());
+                    Toasty.error(LoginActivity.this, "Server error, response code: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Login> call, @NonNull Throwable t) {
-
                 loading.dismiss();
-
+                Log.e("LoginError", "Failure: " + t.getMessage());
+                Toasty.error(LoginActivity.this, "Failed to connect to the server", Toast.LENGTH_SHORT).show();
             }
         });
     }

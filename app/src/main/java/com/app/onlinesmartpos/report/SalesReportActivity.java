@@ -107,37 +107,37 @@ public class SalesReportActivity extends BaseActivity {
                 // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
-            case R.id.menu_all_sales:
-                getReport("all");
-
-                return true;
-
-            case R.id.menu_daily:
-                getReport("daily");
-                getSupportActionBar().setTitle(R.string.daily);
-
-                return true;
-
-            case R.id.menu_weekly:
-                getReport("weekly");
-                getSupportActionBar().setTitle(R.string.weekly);
-
-                return true;
-
-
-            case R.id.menu_monthly:
-                getReport("monthly");
-                getSupportActionBar().setTitle(R.string.monthly);
-
-
-                return true;
-
-            case R.id.menu_yearly:
-                getReport("yearly");
-                getSupportActionBar().setTitle(R.string.yearly);
-
-
-                return true;
+//            case R.id.menu_all_sales:
+//                getReport("all");
+//
+//                return true;
+//
+//            case R.id.menu_daily:
+//                getReport("daily");
+//                getSupportActionBar().setTitle(R.string.daily);
+//
+//                return true;
+//
+//            case R.id.menu_weekly:
+//                getReport("weekly");
+//                getSupportActionBar().setTitle(R.string.weekly);
+//
+//                return true;
+//
+//
+//            case R.id.menu_monthly:
+//                getReport("monthly");
+//                getSupportActionBar().setTitle(R.string.monthly);
+//
+//
+//                return true;
+//
+//            case R.id.menu_yearly:
+//                getReport("yearly");
+//                getSupportActionBar().setTitle(R.string.yearly);
+//
+//
+//                return true;
 
 
 

@@ -14,7 +14,7 @@
     <string name="report">Report</string>
     <string name="all_orders">All Orders</string>
     <string name="all_sales">All Sales</string>
-
+    <string name="invalid_response" translatable="false">Invalid response from the server.</string>
     <string name="daily">Daily</string>
     <string name="monthly">Monthly</string>
     <string name="yearly">Yearly</string>
@@ -247,6 +247,9 @@
     <string name="update_category">Update Category</string>
     <string name="product_buy_price">Product buy price</string>
     <string name="product_buy_price_can_not_be_empty">Product buy price can not be empty</string>
+    <string name="network_error">Network Error</string>
+    <string name="invalid_username_or_password">Invalid Credentials\n</string>
+    <string name="invalid_response_from_server">Invalid response</string>
 
 
 </resources>

@@ -260,25 +260,25 @@ public class HomeActivity extends BaseActivity {
         switch (id) {
 
 
-            case R.id.local_french:
-                setNewLocale(this, LocaleManager.FRENCH);
-                return true;
-
-
-            case R.id.local_english:
-                setNewLocale(this, LocaleManager.ENGLISH);
-                return true;
-
-
-            case R.id.local_bangla:
-                setNewLocale(this, LocaleManager.BANGLA);
-                return true;
-
-            case R.id.local_spanish:
-                setNewLocale(this, LocaleManager.SPANISH);
-                return true;
-            default:
-                Log.d("Default", "default");
+//            case R.id.local_french:
+//                setNewLocale(this, LocaleManager.FRENCH);
+//                return true;
+//
+//
+//            case R.id.local_english:
+//                setNewLocale(this, LocaleManager.ENGLISH);
+//                return true;
+//
+//
+//            case R.id.local_bangla:
+//                setNewLocale(this, LocaleManager.BANGLA);
+//                return true;
+//
+//            case R.id.local_spanish:
+//                setNewLocale(this, LocaleManager.SPANISH);
+//                return true;
+//            default:
+//                Log.d("Default", "default");
 
         }
 
